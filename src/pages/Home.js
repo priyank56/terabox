@@ -154,7 +154,7 @@ function Home() {
                   sm={12}
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      "https://tera-fd6c3.web.app/v/" + data?.uniqueId
+                      "https://terabox.web.app/v/" + data?.uniqueId
                     );
                     alert("Copied!");
                   }}>
