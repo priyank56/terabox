@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.photo.gallery.album.vault",
+      "sha256_cert_fingerprints": [
+        "A4:6F:60:5A:FA:9B:88:F9:E5:F0:9E:73:88:50:89:58:A5:9F:CE:9F:B0:6B:37:53:A9:82:0E:EE:D5:E2:F8:29",
+        "E7:C4:9C:26:96:12:BE:55:C7:C5:AE:2E:DF:BF:F4:34:90:00:83:B9:2E:B0:66:61:A1:60:04:15:5C:A5:D4:3A"
+      ]
+    }
+  }
+]
