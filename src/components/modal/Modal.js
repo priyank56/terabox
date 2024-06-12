@@ -24,6 +24,7 @@ import {
 import { fireStore, fireStorage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "./modal.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FormModal = (props) => {
   const {
@@ -48,6 +49,7 @@ const FormModal = (props) => {
     imgUrl: "",
     url: "",
     name: "",
+    tags: [],
   });
   const handleClose = () => {
     setOpen(false);
@@ -60,6 +62,7 @@ const FormModal = (props) => {
         imgUrl: "",
         url: "",
         name: "",
+        tags: [],
       });
     setError({
       img: false,
@@ -148,7 +151,7 @@ const FormModal = (props) => {
         setUpdateEvent(false);
       } else {
         const docRef = await updateDoc(
-          doc(fireStore, "event", eventData?.id),
+          doc(fireStore, "products", eventData?.id),
           eventData
         );
         const indexOfEvent = events?.findIndex(
@@ -205,6 +208,7 @@ const FormModal = (props) => {
                 imgUrl: url ? url : "",
                 url: eventData?.url ? eventData?.url : "",
                 name: eventData?.name ? eventData?.name : "",
+                tags: eventData?.tags ? eventData?.tags : [],
                 createdAt: new Date(),
               });
               setEvents([
@@ -214,6 +218,8 @@ const FormModal = (props) => {
                   imgUrl: url ? url : "",
                   url: eventData?.url ? eventData?.url : "",
                   name: eventData?.name ? eventData?.name : "",
+                  uniqueId: uniqueId,
+                  tags: eventData?.tags ? eventData?.tags : [],
                 },
                 ...events,
               ]);
@@ -222,6 +228,7 @@ const FormModal = (props) => {
                 imgUrl: "",
                 url: "",
                 name: "",
+                tags: [],
               });
             }
             setOpen(false);
@@ -255,6 +262,7 @@ const FormModal = (props) => {
         imgUrl: updateEventData?.imgUrl ? updateEventData?.imgUrl : "",
         url: updateEventData?.url ? updateEventData?.url : "",
         name: updateEventData?.name ? updateEventData?.name : "",
+        tags: updateEventData?.tags ? updateEventData?.tags : [],
       });
       setstate(updateEventData?.imgUrl ? updateEventData?.imgUrl : "");
     }
@@ -272,14 +280,34 @@ const FormModal = (props) => {
     width: 1,
   });
 
+  const addTags = (event) => {
+    if (event.key === "Enter" && event.target.value !== "") {
+      setEventData({
+        ...eventData,
+        tags: [...eventData.tags, event.target.value],
+      });
+      event.target.value = "";
+    }
+  };
+
+  const removeTags = (index) => {
+    setEventData({
+      ...eventData,
+      tags: [
+        ...eventData.tags.filter(
+          (tag) => eventData.tags.indexOf(tag) !== index
+        ),
+      ],
+    });
+  };
+
   return (
     <div>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
+        aria-describedby="alert-dialog-description">
         <DialogTitle sx={{ textAlign: "center" }}>
           {updateEvent ? "Update Product" : "Add Product"}
         </DialogTitle>
@@ -290,8 +318,7 @@ const FormModal = (props) => {
               alignContent: "start",
               fontWeight: 700,
               marginLeft: "21px",
-            }}
-          >
+            }}>
             Upload Image
           </InputLabel>
           {/* <Typography variant="body2" textAlign={"center"} mt={2}>
@@ -306,8 +333,7 @@ const FormModal = (props) => {
                   mt: 1,
                   display: "flex",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <div className="drop-file-input">
                   <div className="drop-file-input__label">
                     <img src={uploadImg} alt="" />
@@ -324,8 +350,7 @@ const FormModal = (props) => {
               {error?.img && (
                 <Typography
                   sx={{ ml: 2, mt: 1, color: "#d32f2f" }}
-                  variant="body2"
-                >
+                  variant="body2">
                   Please upload image file
                 </Typography>
               )}
@@ -338,8 +363,7 @@ const FormModal = (props) => {
                   mt: 2,
                   display: "flex",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <img
                   src={state ? state : ""}
                   id="output"
@@ -358,8 +382,7 @@ const FormModal = (props) => {
                     variant="outlined"
                     sx={{ mt: 2, ml: "auto" }}
                     size="small"
-                    component="label"
-                  >
+                    component="label">
                     Edit Image
                     <VisuallyHiddenInput type="file" onChange={loadFile} />
                   </Button>
@@ -424,6 +447,28 @@ const FormModal = (props) => {
                 value={eventData?.name}
               />
             </Box>
+
+            <Box sx={{ mt: 3 }}>
+              <div className="tags-input">
+                <ul id="tags">
+                  {eventData?.tags?.length > 0 &&
+                    eventData?.tags?.map((tag, index) => (
+                      <li key={index} className="tag">
+                        <span>{tag}</span>
+                        <CloseIcon
+                          className="tag-close-icon"
+                          onClick={() => removeTags(index)}
+                        />
+                      </li>
+                    ))}
+                </ul>
+                <input
+                  type="text"
+                  placeholder="Press Enter to Add Tags"
+                  onKeyUp={(event) => addTags(event)}
+                />
+              </div>
+            </Box>
           </Box>
 
           <DialogActions>
@@ -431,8 +476,7 @@ const FormModal = (props) => {
             <Button
               onClick={handleSave}
               autoFocus
-              disabled={clickSave ? true : false}
-            >
+              disabled={clickSave ? true : false}>
               Save
             </Button>
           </DialogActions>

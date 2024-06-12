@@ -152,12 +152,13 @@ function Home() {
                   lg={3}
                   md={6}
                   sm={12}
-                  onClick={async () => {
-                    await navigator.clipboard.writeText(
-                      "https://terabox.web.app/v/" + data?.uniqueId
-                    );
-                    alert("Copied!");
-                  }}>
+                  // onClick={async () => {
+                  //   await navigator.clipboard.writeText(
+                  //     "https://terabox.web.app/v/" + data?.uniqueId
+                  //   );
+                  //   alert("Copied!");
+                  // }}
+                >
                   <Box sx={{ mx: "auto" }}>
                     <Card
                       sx={{
@@ -231,7 +232,15 @@ function Home() {
                           </Box>
                         </div>
                       )}
-                      <CardMedia sx={{ height: 280 }} image={data?.imgUrl}>
+                      <CardMedia
+                        sx={{ height: 280 }}
+                        image={data?.imgUrl}
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(
+                            "https://terabox.web.app/v/" + data?.uniqueId
+                          );
+                          alert("Copied!");
+                        }}>
                         {/* <video
                   controls
                   width={"100%"}
@@ -243,7 +252,13 @@ function Home() {
                 </video> */}
                       </CardMedia>
 
-                      <CardContent>
+                      <CardContent
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(
+                            "https://terabox.web.app/v/" + data?.uniqueId
+                          );
+                          alert("Copied!");
+                        }}>
                         <Typography gutterBottom variant="body1">
                           {data?.name ? data?.name : ""}
                         </Typography>
