@@ -1,0 +1,127 @@
+/* General Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+#video {
+    border-radius: 8px;
+    background-color: black;
+    max-width: 100%;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Controls Panel */
+.custom-video-controls {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Control Group */
+.control-group {
+    flex: 1 1 calc(30% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.control-group:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.control-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.control-group select,
+.control-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.control-group select:hover,
+.control-group input:hover {
+    border-color: #0d6efd;
+}
+
+.control-group input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #0d6efd;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.control-group input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.control-group input[type="range"]::-webkit-slider-runnable-track:hover {
+    background: #bbb;
+}
+
+/* Buttons */
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+    .control-group {
+        flex: 1 1 100%;
+    }
+}
